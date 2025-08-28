@@ -1,0 +1,11 @@
+INFO 2025-08-28 13:19:35,104 autoreload 11068 10280 Watching for file changes with StatReloader
+WARNING 2025-08-28 13:19:38,966 log 11068 9828 Not Found: /
+WARNING 2025-08-28 13:19:38,966 basehttp 11068 9828 "GET / HTTP/1.1" 404 2314
+WARNING 2025-08-28 13:19:39,135 log 11068 9828 Not Found: /favicon.ico
+WARNING 2025-08-28 13:19:39,135 basehttp 11068 9828 "GET /favicon.ico HTTP/1.1" 404 2365
+WARNING 2025-08-28 13:19:44,010 log 11068 9828 Not Found: /api/accounts
+WARNING 2025-08-28 13:19:44,010 basehttp 11068 9828 "GET /api/accounts HTTP/1.1" 404 2368
+WARNING 2025-08-28 13:20:21,508 log 11068 3956 Not Found: /favicon.ico
+WARNING 2025-08-28 13:20:21,508 basehttp 11068 3956 "GET /favicon.ico HTTP/1.1" 404 2365
+INFO 2025-08-28 13:22:19,057 autoreload 11068 10280 E:\Projects\news\backend\urls.py changed, reloading.
+INFO 2025-08-28 13:22:19,437 autoreload 8148 32572 Watching for file changes with StatReloader
