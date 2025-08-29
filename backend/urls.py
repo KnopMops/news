@@ -6,7 +6,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-	path('api/v1/auth/', include('apps.accounts.urls'))
+
+	path('api/v1/auth/', include('apps.accounts.urls')),
+	path('api/v1/posts/', include('apps.main.urls')),
+	path('api/v1/comments/', include('apps.comments.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

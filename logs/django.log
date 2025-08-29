@@ -9,3 +9,125 @@ WARNING 2025-08-28 13:20:21,508 log 11068 3956 Not Found: /favicon.ico
 WARNING 2025-08-28 13:20:21,508 basehttp 11068 3956 "GET /favicon.ico HTTP/1.1" 404 2365
 INFO 2025-08-28 13:22:19,057 autoreload 11068 10280 E:\Projects\news\backend\urls.py changed, reloading.
 INFO 2025-08-28 13:22:19,437 autoreload 8148 32572 Watching for file changes with StatReloader
+ERROR 2025-08-28 13:25:40,500 log 8148 17708 Internal Server Error: /api/v1/auth/register
+Traceback (most recent call last):
+  File "E:\Projects\news\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/api/v1/auth/register/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+ERROR 2025-08-28 13:25:40,501 basehttp 8148 17708 "POST /api/v1/auth/register HTTP/1.1" 500 77918
+ERROR 2025-08-28 13:27:42,337 log 8148 31592 Internal Server Error: /api/v1/auth/register/
+Traceback (most recent call last):
+  File "E:\Projects\news\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python312\Lib\contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "E:\Projects\news\.venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "E:\Projects\news\.venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\rest_framework\generics.py", line 194, in post
+    return self.create(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\apps\accounts\views.py", line 31, in create
+    'user': UserProfileSerializer(user).data,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\rest_framework\serializers.py", line 573, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\rest_framework\serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\rest_framework\serializers.py", line 540, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\news\.venv\Lib\site-packages\rest_framework\fields.py", line 1869, in to_representation
+    method = getattr(self.parent, self.method_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'UserProfileSerializer' object has no attribute 'get_posts_count'
+ERROR 2025-08-28 13:27:42,342 basehttp 8148 31592 "POST /api/v1/auth/register/ HTTP/1.1" 500 130794
+INFO 2025-08-28 13:29:07,903 autoreload 8148 32572 E:\Projects\news\apps\accounts\serializers.py changed, reloading.
+INFO 2025-08-28 13:29:08,246 autoreload 24272 31436 Watching for file changes with StatReloader
+INFO 2025-08-28 13:29:12,893 basehttp 24272 16860 "POST /api/v1/auth/register/ HTTP/1.1" 201 813
+WARNING 2025-08-28 13:34:21,444 log 24272 29932 Method Not Allowed: /api/v1/auth/profile/
+WARNING 2025-08-28 13:34:21,444 basehttp 24272 29932 "POST /api/v1/auth/profile/ HTTP/1.1" 405 55
+INFO 2025-08-28 13:34:26,716 basehttp 24272 29932 "GET /api/v1/auth/profile/ HTTP/1.1" 200 274
+WARNING 2025-08-28 13:35:40,564 log 24272 29932 Method Not Allowed: /api/v1/auth/login/
+WARNING 2025-08-28 13:35:40,565 basehttp 24272 29932 "GET /api/v1/auth/login/ HTTP/1.1" 405 54
+INFO 2025-08-28 13:35:44,216 basehttp 24272 29932 "POST /api/v1/auth/login/ HTTP/1.1" 200 808
+INFO 2025-08-28 13:36:08,704 basehttp 24272 29932 - Broken pipe from ('127.0.0.1', 52983)
+INFO 2025-08-28 13:36:44,704 autoreload 13740 10320 Watching for file changes with StatReloader
+WARNING 2025-08-28 13:36:47,644 log 13740 20376 Not Found: /
+WARNING 2025-08-28 13:36:47,644 basehttp 13740 20376 "GET / HTTP/1.1" 404 2652
+INFO 2025-08-28 13:36:51,149 basehttp 13740 20376 "GET /admin HTTP/1.1" 301 0
+INFO 2025-08-28 13:36:51,189 basehttp 13740 12464 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-08-28 13:36:51,275 basehttp 13740 12464 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4352
+INFO 2025-08-28 13:36:51,395 basehttp 13740 2852 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-08-28 13:36:51,400 basehttp 13740 12464 "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-08-28 13:36:51,403 basehttp 13740 10684 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-08-28 13:36:51,404 basehttp 13740 4976 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-08-28 13:36:51,405 basehttp 13740 25664 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-08-28 13:36:51,409 basehttp 13740 30224 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-08-28 13:36:51,415 basehttp 13740 25664 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-08-28 13:37:01,959 basehttp 13740 25664 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-28 13:37:02,032 basehttp 13740 25664 "GET /admin/ HTTP/1.1" 200 7009
+INFO 2025-08-28 13:37:02,054 basehttp 13740 25664 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-08-28 13:37:02,066 basehttp 13740 25664 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-08-28 13:37:02,066 basehttp 13740 30224 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-08-28 13:37:03,813 basehttp 13740 25664 "GET /admin/accounts/user/ HTTP/1.1" 200 14457
+INFO 2025-08-28 13:37:03,840 basehttp 13740 25664 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-08-28 13:37:03,844 basehttp 13740 10684 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-08-28 13:37:03,845 basehttp 13740 12464 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-08-28 13:37:03,846 basehttp 13740 2852 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-08-28 13:37:03,854 basehttp 13740 10684 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-08-28 13:37:03,854 basehttp 13740 25664 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-08-28 13:37:03,855 basehttp 13740 12464 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-08-28 13:37:03,859 basehttp 13740 4976 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-08-28 13:37:03,861 basehttp 13740 10684 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-08-28 13:37:03,862 basehttp 13740 12464 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-08-28 13:37:03,872 basehttp 13740 2852 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-08-28 13:37:03,883 basehttp 13740 30224 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-08-28 13:37:03,901 basehttp 13740 4976 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-08-28 13:37:03,920 basehttp 13740 2852 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-08-28 13:37:03,921 basehttp 13740 30224 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-08-28 13:37:03,921 basehttp 13740 4976 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-08-28 13:37:09,109 basehttp 13740 4976 "GET /admin/accounts/user/2/change/ HTTP/1.1" 200 25811
+INFO 2025-08-28 13:37:09,135 basehttp 13740 4976 "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-08-28 13:37:09,140 basehttp 13740 10684 "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-08-28 13:37:09,142 basehttp 13740 25664 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-08-28 13:37:09,143 basehttp 13740 2852 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-08-28 13:37:09,147 basehttp 13740 4976 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-08-28 13:37:09,148 basehttp 13740 12464 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-08-28 13:37:09,148 basehttp 13740 10684 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+INFO 2025-08-28 13:37:09,162 basehttp 13740 12464 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-08-28 13:37:09,173 basehttp 13740 30224 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2025-08-28 13:37:09,208 basehttp 13740 12464 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-08-28 13:37:09,208 basehttp 13740 10684 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-08-28 13:37:09,209 basehttp 13740 30224 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-08-28 23:50:33,056 autoreload 2520 28328 Watching for file changes with StatReloader
+INFO 2025-08-29 21:08:07,728 autoreload 19308 26760 Watching for file changes with StatReloader
