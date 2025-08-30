@@ -171,6 +171,29 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
 
+CELERY_BEAT_SCHEDULE = {
+    'check-expired-subscriptions': {
+        'task': 'apps.subscribe.tasks.check_expired_subscriptions',
+        'schedule': 3600.0,
+    },
+    'send-subscription-expiry-reminders': {
+        'task': 'apps.subscribe.tasks.send_subscription_expiry_reminder',
+        'schedule': 86400.0,
+    },
+    'cleanup-old-payments': {
+        'task': 'apps.payment.tasks.cleanup_old_payments',
+        'schedule': 604800.0,
+    },
+    'cleanup-old-webhook-events': {
+        'task': 'apps.payment.tasks.cleanup_old_webhook_events',
+        'schedule': 86400.0,
+    },
+    'retry-failed-webhook-events': {
+        'task': 'apps.payment.tasks.retry_failed_webhook_events',
+        'schedule': 3600.0,
+    },
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
