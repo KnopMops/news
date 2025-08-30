@@ -29,7 +29,9 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
 	'apps.accounts.apps.AccountsConfig',
 	'apps.main.apps.MainConfig',
-	'apps.comments.apps.CommentsConfig'
+	'apps.comments.apps.CommentsConfig',
+	'apps.subscribe.apps.SubscribeConfig',
+	'apps.payment.apps.PaymentConfig'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -155,6 +157,19 @@ SIMPLE_JWT = {
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
+
+FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:5173')
+
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY', default='')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET', default='')
+
+CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='redis://localhost:6379/0')
+CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='redis://localhost:6379/0')
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json']
 
 LOGGING = {
     'version': 1,

@@ -187,3 +187,104 @@ def recent_posts(request):
         context={'request': request}
     )
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def pinned_posts_only(request):
+    posts = Post.objects.pinned_posts()
+    serializer = PostListSerializer(
+        posts,
+        many=True,
+        context={'request': request}
+    )
+    return Response({
+        'count': posts.count(),
+        'results': serializer.data
+    })
+
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def featured_posts(request):
+    from django.utils import timezone
+    from datetime import timedelta
+
+    pinned_posts = Post.objects.pinned_posts()[:3]
+
+    week_ago = timezone.now() - timedelta(days=7)
+    popular_posts = Post.objects.with_subscription_info().filter(
+        status='published',
+        created_at__gte=week_ago
+    ).exclude(
+        id__in=[post.id for post in pinned_posts]
+    ).order_by('-views_count')[:6]
+    
+    # Сериализуем данные
+    pinned_serializer = PostListSerializer(
+        pinned_posts, 
+        many=True, 
+        context={'request': request}
+    )
+    popular_serializer = PostListSerializer(
+        popular_posts, 
+        many=True, 
+        context={'request': request}
+    )
+    
+    return Response({
+        'pinned_posts': pinned_serializer.data,
+        'popular_posts': popular_serializer.data,
+        'total_pinned': Post.objects.pinned_posts().count()
+    })
+
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def recent_posts(request):
+    posts = Post.objects.with_subscription_info().filter(
+        status='published'
+    ).order_by('-created_at')[:10]
+    
+    serializer = PostListSerializer(
+        posts, 
+        many=True, 
+        context={'request': request}
+    )
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def toggle_post_pin_status(request, slug):
+    post = get_object_or_404(Post, slug=slug, author=request.user, status='published')
+    
+    if not hasattr(request.user, 'subscription') or not request.user.subscription.is_active:
+        return Response({
+            'error': 'Active subscription required to pin posts'
+        }, status=status.HTTP_403_FORBIDDEN)
+    
+    try:
+        from apps.subscribe.models import PinnedPost
+
+        if post.is_pinned:
+            post.pin_info.delete()
+            message = 'Post unpinned successfully'
+            is_pinned = False
+        else:
+            if hasattr(request.user, 'pinned_post'):
+                request.user.pinned_post.delete()
+
+            PinnedPost.objects.create(user=request.user, post=post)
+            message = 'Post pinned successfully'
+            is_pinned = True
+        
+        return Response({
+            'message': message,
+            'is_pinned': is_pinned,
+            'post': PostDetailSerializer(post, context={'request': request}).data
+        })
+        
+    except Exception as e:
+        return Response({
+            'error': str(e)
+        }, status=status.HTTP_400_BAD_REQUEST)
